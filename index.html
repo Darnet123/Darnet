@@ -102,8 +102,8 @@
             background: rgba(0, 243, 255, 0.15); border: 1px solid var(--accent); color: var(--accent);
         }
         .social-label { text-align: left; }
-        .platform { font-size: 0.7rem; color: #aaa; text-transform: uppercase; letter-spacing: 2px; }
-        .handle { font-size: 1.05rem; font-weight: 600; color: #f0f0f0; }
+        .platform { font-size: 0.7rem; color: #aaa; text-transform: uppercase; letter-spacing: 2px; display: block; }
+        .handle { font-size: 1.05rem; font-weight: 600; color: #f0f0f0; display: block; }
         .audio-player {
             position: relative; z-index: 2; display: flex; align-items: center; gap: 14px;
             padding: 12px 18px; border-radius: 50px; background: rgba(10,25,35,0.7);
@@ -144,21 +144,56 @@
         <div class="glow-line"></div>
 
         <div class="socials">
+            <!-- Discord (копирует) -->
             <div class="social-btn" data-copy="darnet.">
-                <div class="social-icon"><svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M20.317 4.37..."/></svg></div>
-                <div class="social-label"><span class="platform">Discord</span><span class="handle">darnet.</span></div>
+                <div class="social-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M20.317 4.37c-1.634-.573-3.372-1.015-5.164-1.29a.082.082 0 0 0-.088.04c-.234.44-.495.96-.676 1.39a13.894 13.894 0 0 0-4.778 0 10.645 10.645 0 0 0-.685-1.39.081.081 0 0 0-.088-.04 19.818 19.818 0 0 0-5.173 1.29.075.075 0 0 0-.035.027C.533 9.046-.32 13.58.099 18.057a.08.08 0 0 0 .031.057c1.805 1.395 3.815 2.48 5.993 3.03a.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128c.12-.098.246-.198.373-.292a.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.127.094.254.195.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
+                    </svg>
+                </div>
+                <div class="social-label">
+                    <span class="platform">Discord</span>
+                    <span class="handle">darnet.</span>
+                </div>
             </div>
+
+            <!-- Telegram прямая ссылка -->
             <a class="social-btn" href="https://t.me/Darnet887" target="_blank" rel="noopener">
-                <div class="social-icon"><svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48..."/></svg></div>
-                <div class="social-label"><span class="platform">Telegram</span><span class="handle">@Darnet887</span></div>
+                <div class="social-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 0 0-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.87-1.25 4.79-2.08 5.76-2.47 2.74-1.14 3.31-1.34 3.68-1.34.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .24z"/>
+                    </svg>
+                </div>
+                <div class="social-label">
+                    <span class="platform">Telegram</span>
+                    <span class="handle">@Darnet887</span>
+                </div>
             </a>
+
+            <!-- VK прямая ссылка -->
             <a class="social-btn" href="https://vk.com/haliver" target="_blank" rel="noopener">
-                <div class="social-icon"><svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M21.579 6.855..."/></svg></div>
-                <div class="social-label"><span class="platform">ВКонтакте</span><span class="handle">@haliver</span></div>
+                <div class="social-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M21.579 6.855c.14-.465 0-.806-.662-.806h-2.193c-.558 0-.813.295-.953.62 0 0-1.115 2.719-2.695 4.482-.51.513-.743.675-1.021.675-.139 0-.341-.162-.341-.627V6.855c0-.558-.161-.806-.626-.806H9.642c-.348 0-.558.258-.558.504 0 .528.79.65.871 2.138v3.228c0 .707-.127.836-.407.836-.743 0-2.551-2.729-3.624-5.853-.209-.607-.42-.852-.98-.852H2.752c-.627 0-.752.295-.752.62 0 .582.743 3.462 3.461 7.271 1.812 2.601 4.363 4.011 6.687 4.011 1.393 0 1.565-.313 1.565-.852v-1.966c0-.626.133-.752.574-.752.324 0 .882.164 2.183 1.417 1.486 1.486 1.732 2.153 2.567 2.153h2.192c.628 0 .942-.313.76-.931-.197-.615-.905-1.51-1.845-2.569-.509-.602-1.273-1.25-1.504-1.574-.325-.419-.232-.604 0-.976.001-.001 2.66-3.75 2.937-5.021z"/>
+                    </svg>
+                </div>
+                <div class="social-label">
+                    <span class="platform">ВКонтакте</span>
+                    <span class="handle">@haliver</span>
+                </div>
             </a>
+
+            <!-- ТГ Канал прямая ссылка -->
             <a class="social-btn" href="https://t.me/strituxa124" target="_blank" rel="noopener">
-                <div class="social-icon"><svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48..."/></svg></div>
-                <div class="social-label"><span class="platform">ТГ Канал</span><span class="handle">@strituxa124</span></div>
+                <div class="social-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 0 0-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.87-1.25 4.79-2.08 5.76-2.47 2.74-1.14 3.31-1.34 3.68-1.34.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .24z"/>
+                    </svg>
+                </div>
+                <div class="social-label">
+                    <span class="platform">ТГ Канал</span>
+                    <span class="handle">@strituxa124</span>
+                </div>
             </a>
         </div>
 
@@ -192,7 +227,7 @@
 
             let audioCtx = null, analyser = null, source = null;
             let isPlaying = false;
-            let lastDataArray = null; // храним последнее состояние для паузы
+            let lastDataArray = null;
 
             async function initAudio() {
                 if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -219,41 +254,35 @@
             }
 
             let drawInterval = null;
-            let animationFrame = null;
-
             function startDrawing() {
                 if (!analyser) return;
                 const bufferLength = analyser.frequencyBinCount;
                 const dataArray = new Uint8Array(bufferLength);
-
-                function update() {
+                drawInterval = setInterval(() => {
                     if (!isPlaying) return;
                     analyser.getByteFrequencyData(dataArray);
-                    lastDataArray = new Uint8Array(dataArray); // сохраняем
+                    lastDataArray = new Uint8Array(dataArray);
                     drawVisualizer(lastDataArray);
-                    // лёгкая пульсация ника (раз в 100 мс)
-                }
-                // запускаем обновление с частотой ~20 кадров/с
-                if (drawInterval) clearInterval(drawInterval);
-                drawInterval = setInterval(update, 50);
+                }, 50);
             }
 
-            function animateNickname() {
-                if (!analyser || !isPlaying) return;
-                const data = new Uint8Array(analyser.frequencyBinCount);
-                analyser.getByteFrequencyData(data);
-                const overall = data.reduce((a,b)=>a+b,0)/data.length;
-                nickname.style.textShadow = `0 0 ${30 + overall/10}px #00f3ff, 0 0 ${70 + overall/7}px #00f3ff`;
-                card.style.transform = `scale(${1 + overall/2000})`;
-                if (isPlaying) requestAnimationFrame(animateNickname); // продолжаем цикл, пока играет
+            let nickInterval = null;
+            function startNickAnimation() {
+                if (!analyser) return;
+                const dataArray = new Uint8Array(analyser.frequencyBinCount);
+                nickInterval = setInterval(() => {
+                    if (!isPlaying) return;
+                    analyser.getByteFrequencyData(dataArray);
+                    const overall = dataArray.reduce((a,b)=>a+b,0)/dataArray.length;
+                    nickname.style.textShadow = `0 0 ${30 + overall/10}px #00f3ff, 0 0 ${70 + overall/7}px #00f3ff`;
+                    card.style.transform = `scale(${1 + overall/2000})`;
+                }, 100);
             }
 
             function stopAllAnimations() {
                 if (drawInterval) { clearInterval(drawInterval); drawInterval = null; }
-                if (animationFrame) { cancelAnimationFrame(animationFrame); animationFrame = null; }
-                // при паузе рисуем последний сохранённый массив
+                if (nickInterval) { clearInterval(nickInterval); nickInterval = null; }
                 if (lastDataArray) drawVisualizer(lastDataArray);
-                // сбрасываем стили
                 nickname.style.textShadow = '0 0 30px #00f3ff, 0 0 70px #00f3ff';
                 card.style.transform = 'scale(1)';
             }
@@ -268,7 +297,7 @@
                         playBtn.classList.add('playing');
                         audioLabel.textContent = 'Играет';
                         startDrawing();
-                        animateNickname();
+                        startNickAnimation();
                     } catch (e) {
                         audioLabel.textContent = 'Нажми ▶';
                     }
@@ -292,7 +321,6 @@
                 if (e.code === 'Space' && e.target === document.body) { e.preventDefault(); toggleMusic(); }
             });
 
-            // Копирование
             const toast = document.getElementById('toast');
             let timer;
             document.querySelectorAll('.social-btn[data-copy]').forEach(btn => {
