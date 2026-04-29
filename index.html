@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Darnet — 52 OCG</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Russo+One&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --accent: #00f3ff;
+            --accent-glow: rgba(0, 243, 255, 0.9);
+            --accent-dim: rgba(0, 243, 255, 0.45);
+            --card-bg: rgba(10, 20, 30, 0.65);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.65)),
+                        url('bridge.png') center / cover no-repeat;
+            overflow: hidden;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .side-panel {
+            position: fixed; top: 50%; transform: translateY(-50%);
+            z-index: 15; display: flex; flex-direction: column; align-items: center; gap: 30px;
+            pointer-events: none;
+        }
+        .side-left { left: 25px; }
+        .side-right { right: 25px; }
+        .side-digit {
+            font-family: 'Russo One', sans-serif; font-size: 7rem;
+            color: rgba(0, 243, 255, 0.28); text-shadow: 0 0 60px var(--accent-glow);
+            writing-mode: vertical-lr; letter-spacing: 8px;
+            animation: digitPulse 4s ease-in-out infinite;
+        }
+        .side-right .side-digit { animation-delay: -2s; }
+        .side-line {
+            width: 2px; height: 120px;
+            background: linear-gradient(to bottom, transparent, var(--accent), transparent);
+            opacity: 0.6;
+        }
+        @keyframes digitPulse {
+            0%, 100% { opacity: 0.2; text-shadow: 0 0 30px var(--accent-dim); }
+            50% { opacity: 0.55; text-shadow: 0 0 90px var(--accent-glow); }
+        }
+        .card {
+            position: relative; z-index: 10;
+            background: var(--card-bg); backdrop-filter: blur(28px);
+            border: 2px solid var(--accent-dim); border-radius: 32px;
+            padding: 50px 40px 40px; text-align: center;
+            max-width: 480px; width: 90%;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.7), 0 0 60px var(--accent-dim);
+            transition: transform 0.3s ease; overflow: hidden;
+        }
+        .card:hover { transform: translateY(-5px); }
+        .ocg-runner {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; z-index: 0; overflow: hidden;
+        }
+        .ocg-runner .ocg-text {
+            position: absolute; bottom: -60px; left: 50%; transform: translateX(-50%);
+            font-family: 'Russo One', sans-serif; font-size: 5rem;
+            color: rgba(0, 243, 255, 0.06); white-space: nowrap;
+            animation: ocgScroll 12s linear infinite;
+        }
+        @keyframes ocgScroll {
+            0% { bottom: -60px; opacity: 0; } 5% { opacity: 1; } 95% { opacity: 1; } 100% { bottom: 100%; opacity: 0; }
+        }
+        .nickname {
+            position: relative; z-index: 2;
+            font-family: 'Russo One', sans-serif; font-size: 3.8rem; color: #ffffff;
+            text-shadow: 0 0 30px var(--accent), 0 0 70px var(--accent);
+            margin-bottom: 10px; letter-spacing: 4px;
+        }
+        .glow-line {
+            position: relative; z-index: 2; width: 80%; height: 3px; margin: 0 auto 28px;
+            background: linear-gradient(90deg, transparent, var(--accent) 20%, #ffffff 50%, var(--accent) 80%, transparent);
+            background-size: 200% 100%; border-radius: 2px;
+            animation: lineShift 3s ease-in-out infinite;
+            box-shadow: 0 0 20px var(--accent), 0 0 50px var(--accent);
+        }
+        @keyframes lineShift {
+            0%,100% { background-position: 0% 50%; opacity: 0.8; } 50% { background-position: 100% 50%; opacity: 1; }
+        }
+        .socials { position: relative; z-index: 2; display: flex; flex-direction: column; gap: 14px; margin-bottom: 30px; }
+        .social-btn {
+            display: flex; align-items: center; gap: 16px; padding: 16px 20px; border-radius: 18px;
+            text-decoration: none; color: #fff; font-weight: 600; font-size: 0.95rem; letter-spacing: 0.5px;
+            background: rgba(10, 25, 35, 0.7); border: 1px solid var(--accent-dim);
+            backdrop-filter: blur(10px); transition: all 0.3s ease; cursor: pointer;
+        }
+        .social-btn:hover { border-color: var(--accent); background: rgba(20, 45, 55, 0.8); transform: translateX(6px); }
+        .social-icon {
+            width: 42px; height: 42px; border-radius: 14px; display: flex; align-items: center; justify-content: center;
+            background: rgba(0, 243, 255, 0.15); border: 1px solid var(--accent); color: var(--accent);
+        }
+        .social-label { text-align: left; }
+        .platform { font-size: 0.7rem; color: #aaa; text-transform: uppercase; letter-spacing: 2px; }
+        .handle { font-size: 1.05rem; font-weight: 600; color: #f0f0f0; }
+        .audio-player {
+            position: relative; z-index: 2; display: flex; align-items: center; gap: 14px;
+            padding: 12px 18px; border-radius: 50px; background: rgba(10,25,35,0.7);
+            border: 1px solid var(--accent-dim); backdrop-filter: blur(10px); cursor: pointer;
+        }
+        .play-btn {
+            width: 46px; height: 46px; border-radius: 50%; background: #041a1f;
+            border: 2px solid var(--accent); cursor: pointer; font-size: 1.3rem;
+            color: var(--accent); display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 0 25px var(--accent-dim); transition: 0.3s;
+        }
+        .play-btn.playing { background: #06303a; border-color: #00e5ff; box-shadow: 0 0 50px rgba(0,229,255,0.7); }
+        .visualizer { flex-grow: 1; height: 32px; }
+        .visualizer canvas { width: 100%; height: 100%; }
+        .audio-label { font-size: 0.7rem; color: #aaa; letter-spacing: 1px; white-space: nowrap; }
+        .toast {
+            position: fixed; top: 25px; left: 50%; transform: translateX(-50%) translateY(-130px);
+            background: rgba(5,20,25,0.9); border: 1px solid var(--accent); color: #fff;
+            padding: 12px 28px; border-radius: 50px; font-weight: 600; z-index: 999;
+            transition: transform 0.4s; pointer-events: none;
+        }
+        .toast.show { transform: translateX(-50%) translateY(0); }
+        @media (max-width: 700px) {
+            .side-panel { display: none; }
+            .card { padding: 30px 20px; }
+            .nickname { font-size: 2.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="side-panel side-left"><div class="side-digit">52</div><div class="side-line"></div></div>
+    <div class="side-panel side-right"><div class="side-digit">52</div><div class="side-line"></div></div>
+    <div class="toast" id="toast">✅ Скопировано</div>
+
+    <div class="card" id="card">
+        <div class="ocg-runner"><div class="ocg-text">OCG</div></div>
+        <div class="nickname" id="nickname">DARNET</div>
+        <div class="glow-line"></div>
+
+        <div class="socials">
+            <div class="social-btn" data-copy="darnet.">
+                <div class="social-icon"><svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M20.317 4.37..."/></svg></div>
+                <div class="social-label"><span class="platform">Discord</span><span class="handle">darnet.</span></div>
+            </div>
+            <a class="social-btn" href="https://t.me/Darnet887" target="_blank" rel="noopener">
+                <div class="social-icon"><svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48..."/></svg></div>
+                <div class="social-label"><span class="platform">Telegram</span><span class="handle">@Darnet887</span></div>
+            </a>
+            <a class="social-btn" href="https://vk.com/haliver" target="_blank" rel="noopener">
+                <div class="social-icon"><svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M21.579 6.855..."/></svg></div>
+                <div class="social-label"><span class="platform">ВКонтакте</span><span class="handle">@haliver</span></div>
+            </a>
+            <a class="social-btn" href="https://t.me/strituxa124" target="_blank" rel="noopener">
+                <div class="social-icon"><svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48..."/></svg></div>
+                <div class="social-label"><span class="platform">ТГ Канал</span><span class="handle">@strituxa124</span></div>
+            </a>
+        </div>
+
+        <div class="audio-player" id="audioPlayer">
+            <button class="play-btn" id="playBtn">▶</button>
+            <div class="visualizer"><canvas id="vizCanvas"></canvas></div>
+            <span class="audio-label" id="audioLabel">Жми куда-нибудь</span>
+        </div>
+    </div>
+
+    <audio id="bgAudio" loop preload="auto" style="display:none;">
+        <source src="your-track.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        (function() {
+            const bgAudio = document.getElementById('bgAudio');
+            const playBtn = document.getElementById('playBtn');
+            const audioLabel = document.getElementById('audioLabel');
+            const nickname = document.getElementById('nickname');
+            const card = document.getElementById('card');
+            const canvas = document.getElementById('vizCanvas');
+            const ctx = canvas.getContext('2d');
+
+            function resizeCanvas() {
+                canvas.width = canvas.parentElement.clientWidth;
+                canvas.height = canvas.parentElement.clientHeight;
+            }
+            resizeCanvas();
+            window.addEventListener('resize', resizeCanvas);
+
+            let audioCtx = null, analyser = null, source = null;
+            let isPlaying = false;
+            let lastDataArray = null; // храним последнее состояние для паузы
+
+            async function initAudio() {
+                if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                if (audioCtx.state === 'suspended') await audioCtx.resume();
+                if (source) return;
+                source = audioCtx.createMediaElementSource(bgAudio);
+                analyser = audioCtx.createAnalyser();
+                analyser.fftSize = 256;
+                source.connect(analyser);
+                analyser.connect(audioCtx.destination);
+            }
+
+            function drawVisualizer(dataArray) {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                const barWidth = canvas.width / dataArray.length;
+                for (let i = 0; i < dataArray.length; i++) {
+                    const value = dataArray[i];
+                    const barHeight = (value / 255) * canvas.height;
+                    const x = i * barWidth;
+                    const y = canvas.height - barHeight;
+                    ctx.fillStyle = value > 180 ? '#aaffff' : '#00f3ff';
+                    ctx.fillRect(x, y, barWidth - 1, barHeight);
+                }
+            }
+
+            let drawInterval = null;
+            let animationFrame = null;
+
+            function startDrawing() {
+                if (!analyser) return;
+                const bufferLength = analyser.frequencyBinCount;
+                const dataArray = new Uint8Array(bufferLength);
+
+                function update() {
+                    if (!isPlaying) return;
+                    analyser.getByteFrequencyData(dataArray);
+                    lastDataArray = new Uint8Array(dataArray); // сохраняем
+                    drawVisualizer(lastDataArray);
+                    // лёгкая пульсация ника (раз в 100 мс)
+                }
+                // запускаем обновление с частотой ~20 кадров/с
+                if (drawInterval) clearInterval(drawInterval);
+                drawInterval = setInterval(update, 50);
+            }
+
+            function animateNickname() {
+                if (!analyser || !isPlaying) return;
+                const data = new Uint8Array(analyser.frequencyBinCount);
+                analyser.getByteFrequencyData(data);
+                const overall = data.reduce((a,b)=>a+b,0)/data.length;
+                nickname.style.textShadow = `0 0 ${30 + overall/10}px #00f3ff, 0 0 ${70 + overall/7}px #00f3ff`;
+                card.style.transform = `scale(${1 + overall/2000})`;
+                if (isPlaying) requestAnimationFrame(animateNickname); // продолжаем цикл, пока играет
+            }
+
+            function stopAllAnimations() {
+                if (drawInterval) { clearInterval(drawInterval); drawInterval = null; }
+                if (animationFrame) { cancelAnimationFrame(animationFrame); animationFrame = null; }
+                // при паузе рисуем последний сохранённый массив
+                if (lastDataArray) drawVisualizer(lastDataArray);
+                // сбрасываем стили
+                nickname.style.textShadow = '0 0 30px #00f3ff, 0 0 70px #00f3ff';
+                card.style.transform = 'scale(1)';
+            }
+
+            async function toggleMusic() {
+                if (!isPlaying) {
+                    try {
+                        await initAudio();
+                        await bgAudio.play();
+                        isPlaying = true;
+                        playBtn.textContent = '⏸';
+                        playBtn.classList.add('playing');
+                        audioLabel.textContent = 'Играет';
+                        startDrawing();
+                        animateNickname();
+                    } catch (e) {
+                        audioLabel.textContent = 'Нажми ▶';
+                    }
+                } else {
+                    bgAudio.pause();
+                    isPlaying = false;
+                    playBtn.textContent = '▶';
+                    playBtn.classList.remove('playing');
+                    audioLabel.textContent = 'Пауза';
+                    stopAllAnimations();
+                }
+            }
+
+            playBtn.addEventListener('click', (e) => { e.stopPropagation(); toggleMusic(); });
+            document.getElementById('audioPlayer').addEventListener('click', (e) => {
+                if (e.target === playBtn) return;
+                toggleMusic();
+            });
+            document.addEventListener('click', () => { if (!isPlaying) toggleMusic(); }, { once: false });
+            document.addEventListener('keydown', (e) => {
+                if (e.code === 'Space' && e.target === document.body) { e.preventDefault(); toggleMusic(); }
+            });
+
+            // Копирование
+            const toast = document.getElementById('toast');
+            let timer;
+            document.querySelectorAll('.social-btn[data-copy]').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const txt = btn.getAttribute('data-copy');
+                    if (!txt) return;
+                    navigator.clipboard.writeText(txt).then(() => {
+                        toast.textContent = '✅ ' + txt; toast.classList.add('show');
+                        clearTimeout(timer); timer = setTimeout(() => toast.classList.remove('show'), 2000);
+                    }).catch(() => {
+                        const ta = document.createElement('textarea');
+                        ta.value = txt; ta.style.position = 'fixed'; ta.style.opacity = '0';
+                        document.body.appendChild(ta); ta.select();
+                        document.execCommand('copy'); document.body.removeChild(ta);
+                        toast.textContent = '✅ ' + txt; toast.classList.add('show');
+                        clearTimeout(timer); timer = setTimeout(() => toast.classList.remove('show'), 2000);
+                    });
+                });
+            });
+        })();
+    </script>
+</body>
+</html>
